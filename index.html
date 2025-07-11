@@ -6,19 +6,72 @@
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <title>成本售价计算器 - 情人传奇</title>
   <style>
-    body { font-family: sans-serif; padding: 15px; background-color: #f9f9f9; max-width: 800px; margin: auto; }
-    h1 { display: flex; align-items: center; justify-content: center; gap: 10px; }
-    h1 img { height: 40px; }
-    p { text-align: center; color: #666; }
-    input, select { width: 100%; padding: 8px; margin: 4px 0; box-sizing: border-box; font-size: 16px; }
-    label { font-weight: bold; font-size: 15px; }
-    .result { margin-top: 12px; background: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
-    button { width: 100%; padding: 10px; font-size: 16px; background: linear-gradient(to right, #7fbf7f, #4CAF50); color: white; border: none; margin-top: 8px; border-radius: 20px; cursor: pointer; }
-    button:hover { background: linear-gradient(to right, #6dae6d, #3e9944); }
-    .row { display: flex; gap: 8px; }
-    .row > div { flex: 1; }
-    .double-column .col { flex: 0 0 100%; }
-    .entry { font-size: 16px; margin: 4px 0; }
+    body {
+      font-family: sans-serif;
+      padding: 15px;
+      background-color: #f9f9f9;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    h1 img {
+      height: 40px;
+    }
+    p {
+      text-align: center;
+      color: #666;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .result {
+      margin-top: 12px;
+      background: #fff;
+      padding: 8px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background: linear-gradient(to right, #7fbf7f, #4CAF50);
+      color: white;
+      border: none;
+      margin-top: 8px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: linear-gradient(to right, #6dae6d, #3e9944);
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+    }
+    .row > div {
+      flex: 1;
+    }
+    .entry {
+      font-size: 15px;
+      margin: 4px 0;
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -143,19 +196,13 @@
       };
 
       let html = `<div class="entry"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
-      html += '<div class="double-column"><div class="col">';
+      html += `<div class="entry"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="color: red; font-weight: bold;"><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
 
-      const profitList = ["20%", "30%", "40%", "45%", "50%", "55%"];
-      profitList.forEach(p => {
-        const priceText = `RM ${prices[p].toFixed(2)}`;
-        const style =
-          p === "50%"
-            ? 'style="color: red; font-weight: bold; white-space: nowrap;"'
-            : 'style="white-space: nowrap;"';
-        html += `<div class="entry"><span ${style}><strong>${p} 利润售价：</strong>${priceText}</span></div>`;
-      });
-
-      html += '</div></div>';
       document.getElementById('result').innerHTML = html;
     }
 
