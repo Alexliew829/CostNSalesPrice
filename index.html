@@ -5,160 +5,217 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <title>成本售价计算器 - 情人传奇</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 15px;
+      background-color: #f9f9f9;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    h1 img {
+      height: 40px;
+    }
+    p {
+      text-align: center;
+      margin-top: 0;
+      color: #666;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .result {
+      margin-top: 12px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background: linear-gradient(to right, #7fbf7f, #4CAF50);
+      color: white;
+      border: none;
+      margin-top: 8px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: linear-gradient(to right, #6dae6d, #3e9944);
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+    }
+    .row > div {
+      flex: 1;
+    }
+    .double-column {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .double-column .col {
+      flex: 0 0 48%;
+    }
+    .double-column .entry {
+      font-size: 16px;
+      margin: 4px 0;
+    }
+  </style>
 </head>
 <body>
-  <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-    <img src="Logo2.jpg" alt="情人传奇 Logo" style="height: 40px;" />
+  <h1>
+    <img src="Logo2.jpg" alt="情人传奇 Logo" />
     成本售价计算器
   </h1>
-  <p style="text-align: center;">- Lover Legend Gardening</p>
-<style>
-  body { font-family: sans-serif; padding: 15px; background-color: #f9f9f9; max-width: 800px; margin: auto; }
-  h2::after { content: " - Lover Legend Gardening"; font-size: 14px; font-weight: normal; display: block; color: #666; }
-  input, select { width: 100%; padding: 8px; margin: 4px 0; box-sizing: border-box; font-size: 16px; }
-  label { font-weight: bold; font-size: 15px; }
-  .result { margin-top: 12px; background: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
-  button { width: 100%; padding: 10px; font-size: 16px; background: linear-gradient(to right, #7fbf7f, #4CAF50); color: white; border: none; margin-top: 8px; border-radius: 20px; cursor: pointer; }
-  button:hover { background: linear-gradient(to right, #6dae6d, #3e9944); }
-  .row { display: flex; gap: 8px; }
-  .row > div { flex: 1; }
-  .double-column { display: flex; flex-wrap: wrap; justify-content: space-between; }
-  .double-column .col { flex: 0 0 48%; }
-  .double-column .entry { font-size: 16px; margin: 4px 0; }
-</style>
-</head>
-<body>
-<h2><img alt="情人传奇 Logo" src="favicon.png" class="top-logo"/> 成本售价计算器</h2>
+  <p>- Lover Legend Gardening</p>
 
-<div class="row">
-  <div style="flex: 2;">
-    <label for="price_display">盆栽成本：</label>
-    <input id="price_display" onblur="formatDisplayPrice()" oninput="updateRawPrice()" type="text" placeholder="如 1,000.00"/>
-    <input id="price" type="hidden" value=""/>
+  <div class="row">
+    <div style="flex: 2;">
+      <label for="price_display">盆栽成本：</label>
+      <input id="price_display" onblur="formatDisplayPrice()" oninput="updateRawPrice()" type="text" placeholder="如 1,000.00"/>
+      <input id="price" type="hidden" value=""/>
+    </div>
+    <div style="flex: 1;">
+      <label for="currency">币别：</label>
+      <select id="currency" onchange="setRate()">
+        <option selected value="CNY">CNY</option>
+        <option value="NTD">NTD</option>
+        <option value="VND">VND</option>
+        <option value="IDR">IDR</option>
+      </select>
+    </div>
   </div>
-  <div style="flex: 1;">
-    <label for="currency">币别：</label>
-    <select id="currency" onchange="setRate()">
-      <option selected value="CNY">CNY</option>
-      <option value="NTD">NTD</option>
-      <option value="VND">VND</option>
-      <option value="IDR">IDR</option>
-    </select>
+
+  <div class="row">
+    <div>
+      <label for="rate">汇率：</label>
+      <input id="rate" type="number" value="1.5"/>
+    </div>
+    <div>
+      <label for="freight">运费比例（%）：</label>
+      <input id="freight" type="text" value="30%"/>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div>
-    <label for="rate">汇率：</label>
-    <input id="rate" type="number" value="1.5"/>
+  <div class="row">
+    <div>
+      <label for="pot">花盆成本：</label>
+      <input id="pot" type="number" value="0"/>
+    </div>
+    <div>
+      <label for="moss">苔藓成本：</label>
+      <input id="moss" type="number" value="0"/>
+    </div>
   </div>
-  <div>
-    <label for="freight">运费比例（%）：</label>
-    <input id="freight" type="text" value="30%"/>
-  </div>
-</div>
 
-<div class="row">
-  <div>
-    <label for="pot">花盆成本：</label>
-    <input id="pot" type="number" value="0"/>
-  </div>
-  <div>
-    <label for="moss">苔藓成本：</label>
-    <input id="moss" type="number" value="0"/>
-  </div>
-</div>
+  <label for="local">本地运费：</label>
+  <input id="local" type="number" value="20"/>
 
-<label for="local">本地运费：</label>
-<input id="local" type="number" value="20"/>
+  <button onclick="calculate()">🌱 计算</button>
 
-<button onclick="calculate()">🌱 计算</button>
+  <div class="result" id="result"></div>
 
-<div class="result" id="result"></div>
-
-<script>
-  const defaultRates = {
-    CNY: 1.5,
-    NTD: 1 / 0.15,
-    VND: 1 / 0.00018,
-    IDR: 1 / 0.00028
-  };
-
-  const defaultFreight = {
-    CNY: "30%",
-    NTD: "20%",
-    VND: "58%",
-    IDR: "60%"
-  };
-
-  function setRate() {
-    const currency = document.getElementById('currency').value;
-    document.getElementById('rate').value = defaultRates[currency].toFixed(6);
-    document.getElementById('freight').value = defaultFreight[currency];
-  }
-
-  function updateRawPrice() {
-    const input = document.getElementById('price_display');
-    const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, '')) || 0;
-    document.getElementById('price').value = raw;
-  }
-
-  function formatDisplayPrice() {
-    const input = document.getElementById('price_display');
-    const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, ''));
-    if (!isNaN(raw)) {
-      const parts = raw.toFixed(2).split('.');
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      input.value = parts.join('.');
-    }
-    updateRawPrice();
-  }
-
-  function calculate() {
-    const price = parseFloat(document.getElementById('price').value);
-    const freightInput = document.getElementById('freight').value.trim();
-    const rate = parseFloat(document.getElementById('rate').value);
-    const pot = parseFloat(document.getElementById('pot').value) || 0;
-    const moss = parseFloat(document.getElementById('moss').value) || 0;
-    const local = parseFloat(document.getElementById('local').value) || 0;
-
-    if (isNaN(price) || isNaN(rate)) {
-      alert('请输入有效的进价和汇率');
-      return;
-    }
-
-    const freight = freightInput === ""
-      ? 0.2
-      : freightInput.includes('%')
-        ? parseFloat(freightInput.replace('%', '')) / 100
-        : parseFloat(freightInput) / 100;
-
-    const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
-
-    const prices = {
-      "20%": rmCost * 1.26 * 1.12,
-      "30%": rmCost * 1.43 * 1.12,
-      "40%": rmCost * 1.67 * 1.12,
-      "45%": rmCost * 1.82 * 1.12,
-      "50%": rmCost * 2.00 * 1.12,
-      "55%": rmCost * 2.23 * 1.12
+  <script>
+    const defaultRates = {
+      CNY: 1.5,
+      NTD: 1 / 0.15,
+      VND: 1 / 0.00018,
+      IDR: 1 / 0.00028
     };
 
-    let html = `<div class="entry"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
-    html += '<div class="double-column">';
-    html += '<div class="col">';
-    html += `<div class="entry"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
-    html += `<div class="entry"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
-    html += `<div class="entry"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
-    html += `<div class="entry" style="font-size: 18px;"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
-    html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
-    html += `<div class="entry" style="font-size: 18px;"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
-    html += '</div><div class="col">';
-    html += '</div></div>';
-    document.getElementById('result').innerHTML = html;
-  }
+    const defaultFreight = {
+      CNY: "30%",
+      NTD: "20%",
+      VND: "58%",
+      IDR: "60%"
+    };
 
-  window.onload = () => setRate();
-</script>
+    function setRate() {
+      const currency = document.getElementById('currency').value;
+      document.getElementById('rate').value = defaultRates[currency].toFixed(6);
+      document.getElementById('freight').value = defaultFreight[currency];
+    }
+
+    function updateRawPrice() {
+      const input = document.getElementById('price_display');
+      const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, '')) || 0;
+      document.getElementById('price').value = raw;
+    }
+
+    function formatDisplayPrice() {
+      const input = document.getElementById('price_display');
+      const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, ''));
+      if (!isNaN(raw)) {
+        const parts = raw.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        input.value = parts.join('.');
+      }
+      updateRawPrice();
+    }
+
+    function calculate() {
+      const price = parseFloat(document.getElementById('price').value);
+      const freightInput = document.getElementById('freight').value.trim();
+      const rate = parseFloat(document.getElementById('rate').value);
+      const pot = parseFloat(document.getElementById('pot').value) || 0;
+      const moss = parseFloat(document.getElementById('moss').value) || 0;
+      const local = parseFloat(document.getElementById('local').value) || 0;
+
+      if (isNaN(price) || isNaN(rate)) {
+        alert('请输入有效的进价和汇率');
+        return;
+      }
+
+      const freight = freightInput === ""
+        ? 0.2
+        : freightInput.includes('%')
+          ? parseFloat(freightInput.replace('%', '')) / 100
+          : parseFloat(freightInput) / 100;
+
+      const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
+
+      const prices = {
+        "20%": rmCost * 1.26 * 1.12,
+        "30%": rmCost * 1.43 * 1.12,
+        "40%": rmCost * 1.67 * 1.12,
+        "45%": rmCost * 1.82 * 1.12,
+        "50%": rmCost * 2.00 * 1.12,
+        "55%": rmCost * 2.23 * 1.12
+      };
+
+      let html = `<div class="entry"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
+      html += '<div class="double-column"><div class="col">';
+      html += `<div class="entry"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
+      html += `<div class="entry"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 18px;"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 18px;"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
+      html += '</div></div>';
+
+      document.getElementById('result').innerHTML = html;
+    }
+
+    window.onload = () => setRate();
+  </script>
 </body>
 </html>
