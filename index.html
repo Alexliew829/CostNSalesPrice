@@ -3,117 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>成本售价计算器</title>
-  <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="icon" type="image/png" href="icon-192.png" />
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f7f7f7;
-      text-align: center;
-      padding-top: 40px;
-    }
-    .icon {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-    input, select {
-      font-size: 18px;
-      padding: 8px;
-      width: 100%;
-      max-width: 600px;
-      margin: 5px auto;
-      display: block;
-    }
-    .btn {
-      background-color: #5cb85c;
-      color: white;
-      padding: 10px 20px;
-      font-size: 18px;
-      border: none;
-      border-radius: 20px;
-      margin-top: 20px;
-      cursor: pointer;
-      width: 100%;
-      max-width: 600px;
-    }
-    .result {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #333;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <title>成本售价计算器 - Lover Legend Gardening</title>
 </head>
-<body>
-  <img src="icon-192.png" class="icon" />
+<body style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
+  <img src="favicon.png" alt="logo" width="60" />
   <h2>成本售价计算器</h2>
-  <p>- Lover Legend Gardening</p>
+  <p style="margin-top: -10px;">- Lover Legend Gardening -</p>
 
-  <label>盆栽成本：</label>
-  <input id="cost" type="text" placeholder="如 1,000.00" />
+  <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+    <label>盆栽成本：</label>
+    <input id="treeCost" type="number" value="3200" /><br />
 
-  <label>币别：</label>
-  <select id="currency">
-    <option value="CNY">CNY</option>
-    <option value="NTD">NTD</option>
-    <option value="VND">VND</option>
-    <option value="IDR">IDR</option>
-    <option value="RM">RM</option>
-    <option value="SGD">SGD</option>
-    <option value="USD">USD</option>
-  </select>
+    <label>币别：</label>
+    <select id="currency">
+      <option value="CNY">CNY</option>
+      <option value="NTD">NTD</option>
+      <option value="VND">VND</option>
+      <option value="IDR">IDR</option>
+    </select><br />
 
-  <label>汇率：</label>
-  <input id="rate" type="number" step="0.000001" value="1.500000" />
+    <label>汇率：</label>
+    <input id="rate" type="number" step="0.000001" value="1.5" /><br />
 
-  <label>运费比例（%）：</label>
-  <input id="shipping" type="text" value="30%" />
+    <label>运费比例（%）：</label>
+    <input id="deliveryRatio" type="number" value="35" /><br />
 
-  <label>花盆成本：</label>
-  <input id="pot" type="text" value="0" />
+    <label>花盆成本：</label>
+    <input id="potCost" type="number" value="0" /><br />
 
-  <label>营养成本：</label>
-  <input id="nutrient" type="text" value="0" />
+    <label>本地运费：</label>
+    <input id="localDelivery" type="number" value="200" /><br />
 
-  <label>本地运费：</label>
-  <input id="local" type="text" value="20" />
+    <label>营销成本：</label>
+    <input id="marketingCost" type="number" value="120" /><br />
 
-  <button class="btn" onclick="calc()">🪴 计算</button>
+    <button onclick="calculate()" style="margin-top: 20px; background: green; color: white; padding: 10px 20px; font-size: 18px; border-radius: 20px;">
+      🌱 计算
+    </button>
 
-  <div class="result" id="result"></div>
+    <div id="result" style="margin-top: 20px; font-size: 22px;"></div>
+  </div>
 
   <script>
-    document.getElementById('currency').addEventListener('change', function () {
-      const val = this.value;
-      const shippingInput = document.getElementById('shipping');
-      if (val === 'CNY') shippingInput.value = '25%';
-      else if (val === 'NTD') shippingInput.value = '20%';
-      else if (val === 'VND') shippingInput.value = '45%';
-      else if (val === 'IDR') shippingInput.value = '60%';
-      else shippingInput.value = '30%';
-    });
+    function calculate() {
+      const treeCost = parseFloat(document.getElementById("treeCost").value);
+      const potCost = parseFloat(document.getElementById("potCost").value);
+      const localDelivery = parseFloat(document.getElementById("localDelivery").value);
+      const marketingCost = parseFloat(document.getElementById("marketingCost").value);
+      const rate = parseFloat(document.getElementById("rate").value);
+      const currency = document.getElementById("currency").value;
 
-    function formatCurrency(num) {
-      return 'RM' + Number(num).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+      let deliveryRatio = 0.25; // 默认 CNY 运费
+      if (currency === "NTD") deliveryRatio = 0.2;
+      else if (currency === "VND") deliveryRatio = 0.45;
+      else if (currency === "IDR") deliveryRatio = 0.6;
 
-    function calc() {
-      const cost = parseFloat(document.getElementById('cost').value.replace(/,/g, '')) || 0;
-      const rate = parseFloat(document.getElementById('rate').value) || 1;
-      const pot = parseFloat(document.getElementById('pot').value) || 0;
-      const nutrient = parseFloat(document.getElementById('nutrient').value) || 0;
-      const local = parseFloat(document.getElementById('local').value) || 0;
-      const shippingPercent = parseFloat(document.getElementById('shipping').value.replace('%', '')) || 0;
+      const deliveryCost = treeCost * deliveryRatio;
+      const totalCost = (treeCost + potCost + deliveryCost + localDelivery + marketingCost) / rate;
 
-      const totalCost = ((cost * rate) * (1 + shippingPercent / 100)) + parseFloat(pot) + parseFloat(nutrient) + parseFloat(local);
-      const suggestedPrice = totalCost * 2.5;
+      const prices = [0.2, 0.3, 0.4, 0.45, 0.5, 0.55].map(profit => ({
+        profit,
+        price: (totalCost / (1 - profit)).toFixed(2)
+      }));
 
-      document.getElementById('result').innerHTML =
-        `👉 总成本：${formatCurrency(totalCost)}<br/>
-         👉 建议售价（x2.5）：${formatCurrency(suggestedPrice)}`;
+      let html = `<div><strong>实际成本: RM ${totalCost.toFixed(2)}</strong></div>`;
+      prices.forEach(p => {
+        html += `<div>${Math.round(p.profit * 100)}% 利润售价: RM ${p.price}</div>`;
+      });
+
+      document.getElementById("result").innerHTML = html;
     }
   </script>
 </body>
