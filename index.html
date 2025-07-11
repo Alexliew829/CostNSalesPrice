@@ -204,12 +204,12 @@
 
       let html = `<div class="entry"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
 html += '<div class="double-column"><div class="col">';
-html += `<div class="entry"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
-html += `<div class="entry"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
-html += `<div class="entry"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
-html += `<div class="entry"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
-html += `<div class="entry" style="color: red; font-weight: bold;"><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
-html += `<div class="entry"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
+html += `<div class="entry"><span><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</span></div>`;
+html += `<div class="entry"><span><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</span></div>`;
+html += `<div class="entry"><span><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</span></div>`;
+html += `<div class="entry"><span><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</span></div>`;
+html += `<div class="entry" style="color: red; font-weight: bold;"><span><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</span></div>`;
+html += `<div class="entry"><span><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</span></div>`;
 html += '</div></div>';
 document.getElementById('result').innerHTML = html;
     }
