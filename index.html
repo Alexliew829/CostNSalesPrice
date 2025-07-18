@@ -186,13 +186,14 @@
 
       const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
 
-      const prices = {
-        "20%": rmCost * 1.26 * 1.12,
-        "30%": rmCost * 1.43 * 1.12,
-        "40%": rmCost * 1.67 * 1.12,
-        "45%": rmCost * 1.82 * 1.12,
-        "50%": rmCost * 2.00 * 1.12,
-        "55%": rmCost * 2.23 * 1.12
+    const prices = {
+  "20%": ((price / rate) * (1 + freight) * 1.26 * 1.12) + pot + moss + local,
+  "30%": ((price / rate) * (1 + freight) * 1.43 * 1.12) + pot + moss + local,
+  "40%": ((price / rate) * (1 + freight) * 1.67 * 1.12) + pot + moss + local,
+  "45%": ((price / rate) * (1 + freight) * 1.82 * 1.12) + pot + moss + local,
+  "50%": ((price / rate) * (1 + freight) * 2.00 * 1.12) + pot + moss + local,
+  "55%": ((price / rate) * (1 + freight) * 2.23 * 1.12) + pot + moss + local
+
       };
 let html = `<div class="entry" style="font-size: 20px;"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
 html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
