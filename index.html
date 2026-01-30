@@ -101,7 +101,7 @@
   <div class="row">
     <div>
       <label for="rate">汇率：</label>
-      <input id="rate" type="number" value="1.60"/>
+      <input id="rate" type="number" value="1.65"/>
     </div>
     <div>
       <label for="freight">运费比例（%）：</label>
@@ -129,8 +129,8 @@
 
   <script>
     const defaultRates = {
-      CNY: 1.60,
-      NTD: 1 / 0.15,
+      CNY: 1.65,
+      NTD: 1 / 0.135,
       VND: 1 / 0.000160,
       IDR: 1 / 0.00028
     };
@@ -196,16 +196,18 @@
         "40%": rmCost * 1.67 * 1.12,
         "45%": rmCost * 1.82 * 1.12,
         "50%": rmCost * 2.00 * 1.12,
-        "55%": rmCost * 2.23 * 1.12
+        "55%": rmCost * 2.23 * 1.12,
+        "60%": rmCost * 2.51 * 1.12,
       };
       let html = `<div class="entry" style="font-size: 20px;"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px;"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 利润售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px;"><strong>40% 批发售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 门市售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
-
+      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>60% Fair售价：</strong>RM ${prices["60%"]
+      
       document.getElementById('result').innerHTML = html;
     }
 
