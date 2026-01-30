@@ -196,9 +196,8 @@
         "40%": rmCost * 1.67 * 1.12,
         "45%": rmCost * 1.82 * 1.12,
         "50%": rmCost * 2.00 * 1.12,
-        "55%": rmCost * 2.23 * 1.12,
-        "60%": rmCost * 2.51 * 1.12
-        
+        "55%": rmCost * 2.23 * 1.12
+                
       };
       let html = `<div class="entry" style="font-size: 20px;"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
@@ -207,7 +206,6 @@
       html += `<div class="entry" style="font-size: 20px;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 门市售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>60% Fair售价：</strong>RM ${prices["60%"]
       
       document.getElementById('result').innerHTML = html;
     }
