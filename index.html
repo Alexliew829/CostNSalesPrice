@@ -218,48 +218,25 @@
 const price55 = prices["55%"];
 const price55Discount = price55 * 0.8 / 2;
 
-html += `
-<div class="entry" style="font-size: 20px; display: flex; align-items: baseline; white-space: nowrap; gap: 10px;">
-  <!-- 标题：自动宽度，不固定 -->
-  <span style="flex: 0 0 auto;">
-    <strong>55% 利润售价：</strong>
+html += `<div class="entry" style="font-size: 20px;">
+  <strong>55% 利润售价：</strong>
+  RM ${price55.toFixed(2)}
+  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
+    （-20% / 2 = RM ${price55Discount.toFixed(2)}）
   </span>
-
-  <!-- 主价：吃剩余空间，右对齐 -->
-  <span style="flex: 1 1 auto; min-width: 0; text-align: right;">
-    RM ${price55.toFixed(2)}
-  </span>
-
-  <!-- 蓝色：固定宽度，右对齐 -->
-  <span style="flex: 0 0 115px; color: #1976d2; font-weight: bold; text-align: right;">
-    RM ${price55Discount.toFixed(2)}
-  </span>
-</div>
-`;
+</div>`;
 
 // ===== 60% =====
 const price60 = prices["60%"];
 const price60Discount = price60 * 0.8 / 2;
 
-html += `
-<div class="entry" style="font-size: 20px; display: flex; align-items: baseline; white-space: nowrap; gap: 10px; color: red; font-weight: bold;">
-  <!-- 标题：自动宽度 -->
-  <span style="flex: 0 0 auto;">
-    <strong>60% Fair 售价：</strong>
+html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
+  <strong>60% Fair 售价：</strong>
+  RM ${price60.toFixed(2)}
+  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
+    （-20% / 2 = RM ${price60Discount.toFixed(2)}）
   </span>
-
-  <!-- 主价 -->
-  <span style="flex: 1 1 auto; min-width: 0; text-align: right;">
-    RM ${price60.toFixed(2)}
-  </span>
-
-  <!-- 蓝色 -->
-  <span style="flex: 0 0 115px; color: #1976d2; font-weight: bold; text-align: right;">
-    RM ${price60Discount.toFixed(2)}
-  </span>
-</div>
-`;
-
+</div>`;
 
       document.getElementById('result').innerHTML = html;
     }
