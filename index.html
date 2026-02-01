@@ -214,36 +214,29 @@
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>40% 批发售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 门市售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
-
-      // ===== 55% =====
-      const price55 = prices["55%"];
+// ===== 55% =====
+const price55 = prices["55%"];
 const price55Discount = price55 * 0.8 / 2;
 
-html += `
-<div class="entry" style="font-size: 20px; display: flex; align-items: baseline;">
-  <span style="display: inline-block; width: 360px;">
-    <strong>55% 利润售价：</strong> RM ${price55.toFixed(2)}
-  </span>
-  <span style="margin-left: 16px; color: #1976d2; font-weight: bold; font-size: 20px;">
+html += `<div class="entry" style="font-size: 20px;">
+  <strong>55% 利润售价：</strong>
+  RM ${price55.toFixed(2)}
+  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
     （-20% / 2 = RM ${price55Discount.toFixed(2)}）
   </span>
-</div>
-`;
-      // ===== 60% =====
+</div>`;
+
+// ===== 60% =====
 const price60 = prices["60%"];
 const price60Discount = price60 * 0.8 / 2;
 
-html += `
-<div class="entry" style="font-size: 20px; color: red; font-weight: bold; display: flex; align-items: baseline;">
-  <span style="display: inline-block; width: 360px;">
-    <strong>60% Fair 售价：</strong> RM ${price60.toFixed(2)}
-  </span>
-  <span style="margin-left: 16px; color: #1976d2; font-weight: bold; font-size: 20px;">
+html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
+  <strong>60% Fair 售价：</strong>
+  RM ${price60.toFixed(2)}
+  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
     （-20% / 2 = RM ${price60Discount.toFixed(2)}）
   </span>
-</div>
-`;
-
+</div>`;
 
 
 
