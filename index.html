@@ -219,16 +219,27 @@ const price55 = prices["55%"];
 const price55Discount = price55 * 0.8 / 2;
 
 html += `
-<div class="entry" style="font-size: 20px; display: flex; align-items: baseline; white-space: nowrap;">
-  <span style="flex: 0 0 150px;"><strong>55% 利润售价：</strong></span>
+<div class="entry"
+     style="font-size: 20px;
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;">
+  
+  <!-- 标题区：统一加宽，解决中英长度差 -->
+  <span style="flex: 0 0 170px;">
+    <strong>55% 利润售价：</strong>
+  </span>
 
-  <!-- 主价：可缩小 -->
+  <!-- 主价区：允许缩小，给蓝色让位 -->
   <span style="flex: 1 1 auto; min-width: 0;">
     RM ${price55.toFixed(2)}
   </span>
 
-  <!-- 蓝色：固定，不被挤 -->
-  <span style="flex: 0 0 130px; color: #1976d2; font-weight: bold; text-align: right;">
+  <!-- 蓝色刮胡：固定宽度，不被挤 -->
+  <span style="flex: 0 0 130px;
+               color: #1976d2;
+               font-weight: bold;
+               text-align: right;">
     RM ${price55Discount.toFixed(2)}
   </span>
 </div>
@@ -239,21 +250,33 @@ const price60 = prices["60%"];
 const price60Discount = price60 * 0.8 / 2;
 
 html += `
-<div class="entry" style="font-size: 20px; display: flex; align-items: baseline; white-space: nowrap; color: red; font-weight: bold;">
-  <span style="flex: 0 0 150px;"><strong>60% Fair 售价：</strong></span>
+<div class="entry"
+     style="font-size: 20px;
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;
+            color: red;
+            font-weight: bold;">
+  
+  <!-- 标题区：和 55% 用同样宽度，保证对齐 -->
+  <span style="flex: 0 0 170px;">
+    <strong>60% Fair 售价：</strong>
+  </span>
 
-  <!-- 主价：可缩小 -->
+  <!-- 主价区：允许缩小 -->
   <span style="flex: 1 1 auto; min-width: 0;">
     RM ${price60.toFixed(2)}
   </span>
 
-  <!-- 蓝色：固定，不被挤 -->
-  <span style="flex: 0 0 130px; color: #1976d2; font-weight: bold; text-align: right;">
+  <!-- 蓝色刮胡：固定 -->
+  <span style="flex: 0 0 130px;
+               color: #1976d2;
+               font-weight: bold;
+               text-align: right;">
     RM ${price60Discount.toFixed(2)}
   </span>
 </div>
 `;
-
 
 
       document.getElementById('result').innerHTML = html;
