@@ -156,27 +156,28 @@
 
     const defaultLocal = { CNY: 20, NTD: 20, VND: 20, IDR: 20 };
 
-    // ✅ 新增：VND 花盆成本自动规则（不需要按计算）
     function autoSetPotVND() {
   const currency = document.getElementById('currency').value;
   const potInput = document.getElementById('pot');
 
-  // ✅ 不是 VND：花盆成本自动归零
+  // 非 VND：花盆成本归零
   if (currency !== "VND") {
     potInput.value = "0";
     return;
   }
 
-  // ✅ 是 VND：按进口成本自动设定
+  // VND：按进口成本分级
   const price = parseFloat(document.getElementById('price').value) || 0;
 
-  if (price < 1000000) {
-    potInput.value = "30";
-  } else {
+  if (price >= 4000000) {
+    potInput.value = "100";
+  } else if (price >= 1000000) {
     potInput.value = "50";
+  } else {
+    potInput.value = "30";
   }
 }
-
+ 
     function setRate() {
       const currency = document.getElementById('currency').value;
       document.getElementById('rate').value = defaultRates[currency].toFixed(6);
