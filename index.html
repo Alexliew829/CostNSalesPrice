@@ -79,9 +79,9 @@
     <img src="Logo2.jpg" alt="情人传奇 Logo" />
     成本与售价计算器
   </h1>
-<p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px;">
-  – Lover Legend Gardening
-</p>
+  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px;">
+    – Lover Legend Gardening
+  </p>
 
   <div class="row">
     <div style="flex: 2;">
@@ -129,10 +129,10 @@
   </div>
 
   <label for="local">本地运费：
-  <span style="color: red; font-weight: bold;">
-    （如果钉木架，运费最低 80 起）
-  </span>
-</label>
+    <span style="color: red; font-weight: bold;">
+      （如果钉木架，运费最低 80 起）
+    </span>
+  </label>
   <input id="local" type="text" value="20" />
 
   <button onclick="calculate()">🌱 计算</button>
@@ -154,7 +154,6 @@
       IDR: "50%"
     };
 
-    // 本地运费默认值（全部先用 20；如需 CNY=150，把下面 CNY 改 150）
     const defaultLocal = { CNY: 20, NTD: 20, VND: 20, IDR: 20 };
 
     function setRate() {
@@ -185,14 +184,27 @@
       const price = parseFloat(document.getElementById('price').value);
       const freightInput = document.getElementById('freight').value.trim();
       const rate = parseFloat(document.getElementById('rate').value);
-      const pot = parseFloat(document.getElementById('pot').value) || 0;
       const moss = parseFloat(document.getElementById('moss').value) || 0;
       const local = parseFloat(document.getElementById('local').value) || 0;
+      const currency = document.getElementById('currency').value;
 
       if (isNaN(price) || isNaN(rate) || rate <= 0) {
         alert('请输入有效的进口成本单价和汇率');
         return;
       }
+
+      // ✅ 新增：VND 花盆成本自动设定
+      if (currency === "VND") {
+        const potInput = document.getElementById('pot');
+        if (price < 1000000) {
+          potInput.value = "30";
+        } else {
+          potInput.value = "50";
+        }
+      }
+
+      // 花盆成本：在自动设定之后再读取
+      const pot = parseFloat(document.getElementById('pot').value) || 0;
 
       const freight = freightInput === ""
         ? 0.2
@@ -218,31 +230,32 @@
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;"><strong>50% 门市售价：</strong>RM ${prices["50%"].toFixed(2)}</div>`;
-// ===== 55% =====
-const price55 = prices["55%"];
-const price55Discount = price55 * 0.8 / 2;
 
-html += `<div class="entry" style="font-size: 20px;">
-  <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
-  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
-    / ${price55Discount.toFixed(2)}
-  </span>
-</div>`;
+      // ===== 55% =====
+      const price55 = prices["55%"];
+      const price55Discount = price55 * 0.8 / 2;
 
-// ===== 60% =====
-const price60 = prices["60%"];
-const price60Discount = price60 * 0.75 / 2;
+      html += `<div class="entry" style="font-size: 20px;">
+        <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
+        <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
+          / ${price55Discount.toFixed(2)}
+        </span>
+      </div>`;
 
-html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
-  <strong>60% Fair售价：</strong>RM ${price60.toFixed(2)}
-  <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
-    / ${price60Discount.toFixed(2)}
-  </span>
-</div>`;
+      // ===== 60% =====
+      const price60 = prices["60%"];
+      const price60Discount = price60 * 0.75 / 2;
+
+      html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
+        <strong>60% Fair售价：</strong>RM ${price60.toFixed(2)}
+        <span style="color: #1976d2; font-weight: bold; font-size: 20px;">
+          / ${price60Discount.toFixed(2)}
+        </span>
+      </div>`;
+
       html += `<div class="entry" style="font-size: 20px; font-weight: bold; color: #000;">
-（门市最多 -10% ，Fair 最多 -25%）
-</div>`;
-
+        （门市最多 -10% ，Fair 最多 -25%）
+      </div>`;
 
       document.getElementById('result').innerHTML = html;
     }
@@ -251,4 +264,3 @@ html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bol
   </script>
 </body>
 </html>
-
