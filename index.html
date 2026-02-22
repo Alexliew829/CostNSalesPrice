@@ -72,6 +72,21 @@
       margin: 4px 0;
       white-space: nowrap;
     }
+
+    /* ✅ 小按钮：覆盖全局 button 的 100% 宽度等样式 */
+    .mini-btn{
+      width: auto !important;
+      padding: 4px 8px !important;
+      font-size: 14px !important;
+      border-radius: 10px !important;
+      background: #333 !important;
+      color: #fff !important;
+      border: none !important;
+      cursor: pointer !important;
+      margin-top: 0 !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+    }
   </style>
 </head>
 <body>
@@ -85,13 +100,12 @@
 
   <div class="row">
     <div style="flex: 2;">
-      <label for="price_display" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-  <span>盆栽进口成本：</span>
-  <button type="button" onclick="toggleCalc(true)"
-    style="width:auto; padding:6px 10px; font-size:14px; border-radius:12px; background:#333; color:#fff; border:none; cursor:pointer;">
-    🧮
-  </button>
-</label>
+      <!-- ✅ 按钮紧贴在文字旁边（不靠右） -->
+      <label for="price_display" style="display:flex; align-items:center; gap:8px;">
+        <span>盆栽进口成本：</span>
+        <button type="button" class="mini-btn" onclick="toggleCalc(true)">🧮</button>
+      </label>
+
       <input
         id="price_display"
         onblur="formatDisplayPrice()"
@@ -101,6 +115,7 @@
       />
       <input id="price" type="hidden" value="" />
     </div>
+
     <div style="flex: 1;">
       <label for="currency">货币：</label>
       <select id="currency" onchange="setRate()">
@@ -145,6 +160,66 @@
 
   <div class="result" id="result"></div>
 
+  <!-- ✅ 小计算器弹窗（必须放在页面里，否则点击没反应） -->
+  <div id="calcModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:9999;">
+    <div style="width:min(360px, 92vw); background:#fff; border-radius:14px; padding:12px; margin:12vh auto; box-shadow:0 10px 30px rgba(0,0,0,.2);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <strong style="font-size:16px;">🧮 计算器</strong>
+        <button type="button" class="mini-btn" onclick="toggleCalc(false)" style="background:#777 !important;">关闭</button>
+      </div>
+
+      <input id="calcDisplay" type="text" inputmode="decimal" placeholder="0"
+        style="width:100%; font-size:22px; padding:10px; border:1px solid #ddd; border-radius:10px; box-sizing:border-box; margin-bottom:10px;" />
+
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+        <button type="button" onclick="calcKey('7')">7</button>
+        <button type="button" onclick="calcKey('8')">8</button>
+        <button type="button" onclick="calcKey('9')">9</button>
+        <button type="button" onclick="calcKey('/')">÷</button>
+
+        <button type="button" onclick="calcKey('4')">4</button>
+        <button type="button" onclick="calcKey('5')">5</button>
+        <button type="button" onclick="calcKey('6')">6</button>
+        <button type="button" onclick="calcKey('*')">×</button>
+
+        <button type="button" onclick="calcKey('1')">1</button>
+        <button type="button" onclick="calcKey('2')">2</button>
+        <button type="button" onclick="calcKey('3')">3</button>
+        <button type="button" onclick="calcKey('-')">−</button>
+
+        <button type="button" onclick="calcKey('0')">0</button>
+        <button type="button" onclick="calcKey('.')">.</button>
+        <button type="button" onclick="calcBack()">⌫</button>
+        <button type="button" onclick="calcKey('+')">+</button>
+
+        <button type="button" onclick="calcKey('(')">(</button>
+        <button type="button" onclick="calcKey(')')">)</button>
+        <button type="button" onclick="calcKey('%')">%</button>
+        <button type="button" onclick="calcClear()">C</button>
+
+        <button type="button" onclick="calcEval()" style="grid-column: span 2; font-weight:bold;">=</button>
+        <button type="button" onclick="fillImportCost()" style="grid-column: span 2; font-weight:bold;">填入成本</button>
+      </div>
+
+      <style>
+        /* ✅ 只影响计算器里面的按钮（不被你全局 button 样式影响） */
+        #calcModal button{
+          width:auto !important;
+          padding:10px !important;
+          font-size:16px !important;
+          border-radius:10px !important;
+          border:1px solid #ddd !important;
+          background:#fafafa !important;
+          color:#111 !important;
+          cursor:pointer !important;
+          margin-top:0 !important;
+        }
+        #calcModal button:hover{ background:#f0f0f0 !important; }
+        #calcModal button:active{ transform: scale(0.98); }
+      </style>
+    </div>
+  </div>
+
   <script>
     const defaultRates = {
       CNY: 1.65,
@@ -160,37 +235,96 @@
       IDR: "50%"
     };
 
+    // ✅ CNY 本地运费默认 80；其他 20
     const defaultLocal = { CNY: 80, NTD: 20, VND: 20, IDR: 20 };
 
+    // =======================
+    // ✅ 计算器功能
+    // =======================
+    function toggleCalc(open) {
+      const modal = document.getElementById('calcModal');
+      modal.style.display = open ? 'block' : 'none';
+      if (open) setTimeout(() => document.getElementById('calcDisplay')?.focus(), 0);
+    }
+
+    function calcKey(k) {
+      const d = document.getElementById('calcDisplay');
+      d.value = (d.value || '') + k;
+    }
+
+    function calcClear() {
+      document.getElementById('calcDisplay').value = '';
+    }
+
+    function calcBack() {
+      const d = document.getElementById('calcDisplay');
+      d.value = (d.value || '').slice(0, -1);
+    }
+
+    function calcEval() {
+      const d = document.getElementById('calcDisplay');
+      const expr = (d.value || '').trim();
+      if (!expr) return;
+
+      try {
+        if (!/^[0-9+\-*/().\s%]+$/.test(expr)) {
+          alert('只允许输入数字和 + - * / ( ) . %');
+          return;
+        }
+        const safeExpr = expr.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
+        const result = Function('"use strict"; return (' + safeExpr + ')')();
+        if (typeof result === 'number' && isFinite(result)) d.value = result;
+        else alert('计算结果无效');
+      } catch (e) {
+        alert('表达式有误，请检查');
+      }
+    }
+
+    // 把结果填入“盆栽进口成本”
+    function fillImportCost() {
+      const d = document.getElementById('calcDisplay');
+      const val = parseFloat(d.value);
+      if (isNaN(val)) {
+        alert('请先算出一个数字结果');
+        return;
+      }
+      const input = document.getElementById('price_display');
+      input.value = String(val);
+      formatDisplayPrice(); // 会同步隐藏 price + 触发 autoSetPotVND()
+      toggleCalc(false);
+    }
+
+    // =======================
+    // ✅ VND 花盆成本自动逻辑
+    // =======================
     function autoSetPotVND() {
-  const currency = document.getElementById('currency').value;
-  const potInput = document.getElementById('pot');
+      const currency = document.getElementById('currency').value;
+      const potInput = document.getElementById('pot');
 
-  // 非 VND：花盆成本归零
-  if (currency !== "VND") {
-    potInput.value = "0";
-    return;
-  }
+      // 非 VND：花盆成本归零
+      if (currency !== "VND") {
+        potInput.value = "0";
+        return;
+      }
 
-  // VND：按进口成本分级
-  const price = parseFloat(document.getElementById('price').value) || 0;
+      // VND：按进口成本分级
+      const price = parseFloat(document.getElementById('price').value) || 0;
 
-  if (price >= 4000000) {
-    potInput.value = "100";
-  } else if (price >= 1000000) {
-    potInput.value = "50";
-  } else {
-    potInput.value = "30";
-  }
-}
- 
+      if (price >= 4000000) {
+        potInput.value = "100";
+      } else if (price >= 1000000) {
+        potInput.value = "50";
+      } else {
+        potInput.value = "30";
+      }
+    }
+
     function setRate() {
       const currency = document.getElementById('currency').value;
       document.getElementById('rate').value = defaultRates[currency].toFixed(6);
       document.getElementById('freight').value = defaultFreight[currency];
       document.getElementById('local').value = defaultLocal[currency];
 
-      // ✅ 切换货币时，也自动判断一次花盆成本
       autoSetPotVND();
     }
 
@@ -199,7 +333,6 @@
       const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, '')) || 0;
       document.getElementById('price').value = raw;
 
-      // ✅ 输入成本时，实时自动更新花盆成本（仅 VND）
       autoSetPotVND();
     }
 
@@ -283,7 +416,6 @@
 
     window.onload = () => {
       setRate();
-      // ✅ 页面打开时也执行一次（如果默认币别被切到 VND 时会立即生效）
       autoSetPotVND();
     };
   </script>
