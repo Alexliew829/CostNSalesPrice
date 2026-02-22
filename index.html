@@ -402,7 +402,13 @@
         "60%": rmCost * 2.51 * 1.12
       };
 
-      let html = `<div class="entry" style="font-size: 20px;"><strong>实际成本：</strong>RM ${rmCost.toFixed(2)}</div>`;
+     const costX3 = rmCost * 3;
+let html = `<div class="entry" style="font-size: 20px;">
+  <strong>实际成本：</strong>RM ${rmCost.toFixed(2)}
+  <span style="color:#1976d2; font-weight:bold;">
+    &nbsp;&nbsp;X 3 : RM ${costX3.toFixed(2)}
+  </span>
+</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 批发售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
