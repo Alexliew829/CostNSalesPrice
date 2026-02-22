@@ -85,7 +85,13 @@
 
   <div class="row">
     <div style="flex: 2;">
-      <label for="price_display">盆栽进口成本：</label>
+      <label for="price_display" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+  <span>盆栽进口成本：</span>
+  <button type="button" onclick="toggleCalc(true)"
+    style="width:auto; padding:6px 10px; font-size:14px; border-radius:12px; background:#333; color:#fff; border:none; cursor:pointer;">
+    🧮
+  </button>
+</label>
       <input
         id="price_display"
         onblur="formatDisplayPrice()"
