@@ -415,17 +415,22 @@ let html = `<div class="entry" style="font-size: 20px;">
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       const retail50 = prices["50%"];
 
-// 主播售价 = 50%门市售价
+// 主播售价
 const streamerPrice = retail50;
 
-// 扣除10%佣金后的收入
+// TikTok佣金10%
 const afterCommission = streamerPrice * 0.9;
 
+// 固定本地运费
+const deliveryCost = 80;
+
 // 净利润
-const profitAfterCommission = afterCommission - rmCost;
+const profitAfterCommission =
+  afterCommission - deliveryCost - rmCost;
 
 // 销售利润率
-const marginPercent = (profitAfterCommission / streamerPrice) * 100;
+const marginPercent =
+  (profitAfterCommission / streamerPrice) * 100;
 
 html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
   <strong>50% 门市售价：</strong>RM ${retail50.toFixed(2)}
@@ -436,12 +441,6 @@ html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bol
     ｜利润率：${marginPercent.toFixed(1)}%）
   </span>
 </div>`;
-      const price55 = prices["55%"];
-      const price55Discount = price55 * 0.8 / 2;
-      html += `<div class="entry" style="font-size: 20px;">
-        <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
-        <span style="color: #1976d2; font-weight: bold; font-size: 20px;"> / ${price55Discount.toFixed(2)}</span>
-      </div>`;
 
       const price60 = prices["60%"];
       const price60Discount = price60 * 0.75 / 2;
