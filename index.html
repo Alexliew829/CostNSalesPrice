@@ -415,40 +415,7 @@ let html = `<div class="entry" style="font-size: 20px;">
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>45% 直播售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       const retail50 = prices["50%"];
 
-// 主播售价
-const streamerPrice = retail50;
-
-// 扣除10%佣金
-const afterCommission = streamerPrice * 0.9;
-
-// 固定本地运费 RM80
-const deliveryCost = 80;
-
-// 净利润
-const profitAfterCommission =
-  afterCommission - deliveryCost - rmCost;
-
-// 销售利润率
-const marginPercent =
-  (profitAfterCommission / streamerPrice) * 100;
-
-html += `
-<div class="entry" style="font-size:20px; color:red; font-weight:bold;">
-  <strong>50% 门市售价：</strong>RM ${retail50.toFixed(2)}
-</div>
-
-<div class="entry" style="
-  font-size:18px;
-  color:#000;
-  font-weight:900;
-">
-  （主播售价：RM ${streamerPrice.toFixed(2)}
-  ｜净利润：RM ${profitAfterCommission.toFixed(2)}
-  ｜利润率：${marginPercent.toFixed(1)}%）
-</div>
-`;
-
-// 主播售价
+      // 主播售价
 const streamerPrice = retail50;
 
 // TikTok佣金10%
