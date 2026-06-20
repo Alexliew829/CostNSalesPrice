@@ -146,14 +146,22 @@
     </div>
   </div>
 
-  <label for="local">本地运费：
-    <span style="color: red; font-weight: bold;">
-      （如果钉木架，运费最低 80 起）
-    </span>
-  </label>
-  <input id="local" type="text" value="20" />
+  <div class="row" style="align-items:end;">
+  <div style="flex:1;">
+    <label for="local">本地运费：
+      <span style="color:red;font-weight:bold;font-size:12px;">
+        （木架最低80）
+      </span>
+    </label>
+    <input id="local" type="text" value="20" />
+  </div>
 
-  <button onclick="calculate()">🌱 计算</button>
+  <div style="flex:0.5;">
+    <button onclick="calculate()" style="margin-top:0;">
+      🌱 计算
+    </button>
+  </div>
+</div>
 
   <div class="result" id="result"></div>
 
@@ -435,6 +443,9 @@ html += `
   ｜利润率：${marginPercent.toFixed(2)}%）
 </div>
 `;
+      html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
+  <strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}
+</div>`;
       const price60 = prices["60%"];
       const price60Discount = price60 * 0.75 / 2;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
