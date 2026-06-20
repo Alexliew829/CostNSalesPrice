@@ -7,8 +7,8 @@
   <title>成本与售价计算器 - 情人传奇</title>
   <style>
     body {
-  font-family: sans-serif;
-  padding: 8px 15px;
+      font-family: sans-serif;
+      padding: 15px;
       background-color: #f9f9f9;
       max-width: 800px;
       margin: auto;
@@ -40,7 +40,8 @@
       padding: 8px;
       border-radius: 6px;
       box-shadow: 0 0 8px rgba(0,0,0,0.05);
-     
+      max-height: 300px;
+      overflow-y: auto;
     }
 
     button {
@@ -87,22 +88,14 @@
 </head>
 
 <body>
-  <h1 style="margin-bottom:0;">
-  <img src="Logo2.jpg" alt="情人传奇 Logo" />
-  成本与售价计算器
-</h1>
+  <h1>
+    <img src="Logo2.jpg" alt="情人传奇 Logo" />
+    成本与售价计算器
+  </h1>
+  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px;">
+    – Lover Legend Gardening
+  </p>
 
-<p style="
-  color:red;
-  font-weight:bold;
-  font-size:22px;
-  letter-spacing:1px;
-  margin-top:0;
-  margin-bottom:8px;
-  line-height:1.1;
-">
-  – Lover Legend Gardening
-</p>
   <div class="row">
     <div style="flex: 2;">
       <label for="price_display" style="display:flex; align-items:center; gap:8px;">
@@ -153,22 +146,14 @@
     </div>
   </div>
 
-  <div class="row" style="align-items:end;">
-  <div style="flex:1;">
-    <label for="local">本地运费：
-      <span style="color:red;font-weight:bold;font-size:12px;">
-        （木架最低80）
-      </span>
-    </label>
-    <input id="local" type="text" value="20" />
-  </div>
+  <label for="local">本地运费：
+    <span style="color: red; font-weight: bold;">
+      （如果钉木架，运费最低 80 起）
+    </span>
+  </label>
+  <input id="local" type="text" value="20" />
 
-  <div style="flex:0.5;">
-    <button onclick="calculate()" style="margin-top:0;">
-      🌱 计算
-    </button>
-  </div>
-</div>
+  <button onclick="calculate()">🌱 计算</button>
 
   <div class="result" id="result"></div>
 
@@ -450,9 +435,6 @@ html += `
   ｜利润率：${marginPercent.toFixed(2)}%）
 </div>
 `;
-      html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
-  <strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}
-</div>`;
       const price60 = prices["60%"];
       const price60Discount = price60 * 0.75 / 2;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
