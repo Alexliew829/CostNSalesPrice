@@ -441,7 +441,9 @@ let html = `<div class="entry" style="font-size: 20px;">
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>45% 利润售价：</strong>RM ${prices["45%"].toFixed(2)}</div>`;
       const retail50Raw = prices["50%"];
-const retail50 = Math.ceil(retail50Raw / 80) * 80;
+const retail50 =
+  Math.floor(retail50Raw / 100) * 100 + 80;
+
 const streamerPrice = retail50;
 const afterCommission = streamerPrice * 0.9;
 const deliveryCost = 80;
@@ -456,7 +458,6 @@ html += `
 <div class="entry" style="font-size:20px; color:red; font-weight:bold;">
   <strong>50% 门市/直播售价：</strong>RM ${retail50.toFixed(2)}
 </div>
-
 <div class="entry" style="font-size:18px; color:#000; font-weight:900;">
   （净利润：RM ${profitAfterCommission.toFixed(2)}
   ｜利润率：${marginPercent.toFixed(2)}%）
