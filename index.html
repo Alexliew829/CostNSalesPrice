@@ -473,7 +473,30 @@ html += `
 
       document.getElementById('result').innerHTML = html;
     }
+document.addEventListener('keydown', function(e) {
 
+  const modal =
+    document.getElementById('calcModal');
+
+  if (modal.style.display !== 'block')
+    return;
+
+  if (/^[0-9]$/.test(e.key))
+    calcKey(e.key);
+
+  if (
+    ['+','-','*','/','.','%','(',')']
+    .includes(e.key)
+  )
+    calcKey(e.key);
+
+  if (e.key === 'Backspace')
+    calcBack();
+
+  if (e.key === 'Enter')
+    calcEval();
+
+});
     window.onload = () => {
       setRate();
       autoSetPotVND();
