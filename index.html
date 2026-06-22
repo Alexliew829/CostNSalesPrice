@@ -126,7 +126,7 @@
   <div class="row">
     <div>
       <label for="rate">汇率：</label>
-      <input id="rate" type="text" value="1.65" />
+      <input id="rate" type="text" value="1.58" />
     </div>
     <div>
       <label for="freight">海外到大马运费比例（%）：</label>
@@ -510,6 +510,10 @@ document.addEventListener('keydown', function(e) {
     toggleCalc(false);
   }
 });
+    window.onload = () => {
+  setRate();
+  autoSetPotVND();
+};
   </script>
 </body>
 </html>
