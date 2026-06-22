@@ -307,7 +307,22 @@
           alert('只允许输入数字和 + - * / ( ) . %');
           return;
         }
-        const safeExpr = expr.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
+        let safeExpr = expr;
+
+safeExpr = safeExpr.replace(
+  /(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)%/g,
+  '($1+($1*$2/100))'
+);
+
+safeExpr = safeExpr.replace(
+  /(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)%/g,
+  '($1-($1*$2/100))'
+);
+
+safeExpr = safeExpr.replace(
+  /(\d+(?:\.\d+)?)%/g,
+  '($1/100)'
+);
         const result = Function('"use strict"; return (' + safeExpr + ')')();
         if (typeof result === 'number' && isFinite(result)) d.value = result;
         else alert('计算结果无效');
