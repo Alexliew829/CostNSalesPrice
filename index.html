@@ -298,39 +298,44 @@
     }
 
     function calcEval() {
-      const d = document.getElementById('calcDisplay');
-      const expr = (d.value || '').trim();
-      if (!expr) return;
+  const d = document.getElementById('calcDisplay');
+  const expr = (d.value || '').trim();
+  if (!expr) return;
 
-      try {
-        if (!/^[0-9+\-*/().\s%]+$/.test(expr)) {
-          alert('只允许输入数字和 + - * / ( ) . %');
-          return;
-        }
-        let safeExpr = expr;
-
-safeExpr = safeExpr.replace(
-  /(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)%/g,
-  '($1+($1*$2/100))'
-);
-
-safeExpr = safeExpr.replace(
-  /(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)%/g,
-  '($1-($1*$2/100))'
-);
-
-safeExpr = safeExpr.replace(
-  /(\d+(?:\.\d+)?)%/g,
-  '($1/100)'
-);
-        const result = Function('"use strict"; return (' + safeExpr + ')')();
-        if (typeof result === 'number' && isFinite(result)) d.value = result;
-        else alert('计算结果无效');
-      } catch (e) {
-        alert('表达式有误，请检查');
-      }
+  try {
+    if (!/^[0-9+\-*/().\s%]+$/.test(expr)) {
+      alert('只允许输入数字和 + - * / ( ) . %');
+      return;
     }
 
+    let safeExpr = expr;
+
+    safeExpr = safeExpr.replace(
+      /(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)%/g,
+      '($1+($1*$2/100))'
+    );
+
+    safeExpr = safeExpr.replace(
+      /(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)%/g,
+      '($1-($1*$2/100))'
+    );
+
+    safeExpr = safeExpr.replace(
+      /(\d+(?:\.\d+)?)%/g,
+      '($1/100)'
+    );
+
+    const result = Function('"use strict"; return (' + safeExpr + ')')();
+
+    if (typeof result === 'number' && isFinite(result)) {
+      d.value = Number(result.toFixed(6));
+    } else {
+      alert('计算结果无效');
+    }
+  } catch (e) {
+    alert('表达式有误，请检查');
+  }
+}
     function fillImportCost() {
       const d = document.getElementById('calcDisplay');
       const val = parseFloat(d.value);
@@ -474,33 +479,37 @@ html += `
       document.getElementById('result').innerHTML = html;
     }
 document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('calcModal');
 
-  const modal =
-    document.getElementById('calcModal');
+  if (modal.style.display !== 'block') return;
 
-  if (modal.style.display !== 'block')
-    return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
 
-  if (/^[0-9]$/.test(e.key))
+  if (/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
     calcKey(e.key);
+  }
 
-  if (
-    ['+','-','*','/','.','%','(',')']
-    .includes(e.key)
-  )
+  if (['+','-','*','/','.','%','(',')'].includes(e.key)) {
+    e.preventDefault();
     calcKey(e.key);
+  }
 
-  if (e.key === 'Backspace')
+  if (e.key === 'Backspace') {
+    e.preventDefault();
     calcBack();
+  }
 
-  if (e.key === 'Enter')
+  if (e.key === 'Enter') {
+    e.preventDefault();
     calcEval();
+  }
 
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    toggleCalc(false);
+  }
 });
-    window.onload = () => {
-      setRate();
-      autoSetPotVND();
-    };
   </script>
 </body>
 </html>
