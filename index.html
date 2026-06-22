@@ -471,8 +471,11 @@ const price55 =
 html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
   <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
 </div>`;
-      const price60 = prices["60%"];
-      const price60Discount = price60 * 0.75 / 2;
+     const price60Raw = prices["60%"];
+
+const price60 =
+  Math.floor(price60Raw / 100) * 100 + 80;
+const price60Discount = price60 * 0.75 / 2;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
         <strong>60% Fair售价：</strong>RM ${price60.toFixed(2)}
         <span style="color: #1976d2; font-weight: bold; font-size: 20px;"> / ${price60Discount.toFixed(2)}</span>
