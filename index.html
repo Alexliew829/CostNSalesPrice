@@ -505,10 +505,34 @@ document.addEventListener('keydown', function(e) {
   }
 
   if (e.key === 'Backspace') {
+
+  const d = document.getElementById('calcDisplay');
+
+  if (
+    d.selectionStart === 0 &&
+    d.selectionEnd === d.value.length
+  ) {
     e.preventDefault();
-    calcBack();
+    calcClear();
+    return;
   }
 
+  e.preventDefault();
+  calcBack();
+}
+  if (e.key === 'Delete') {
+
+  const d = document.getElementById('calcDisplay');
+
+  if (
+    d.selectionStart === 0 &&
+    d.selectionEnd === d.value.length
+  ) {
+    e.preventDefault();
+    calcClear();
+    return;
+  }
+}
   if (e.key === 'Enter') {
     e.preventDefault();
     calcEval();
