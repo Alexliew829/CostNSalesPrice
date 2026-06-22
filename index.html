@@ -463,8 +463,13 @@ html += `
   ｜利润率：${marginPercent.toFixed(2)}%）
 </div>
 `;
-      html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
-  <strong>55% 利润售价：</strong>RM ${prices["55%"].toFixed(2)}
+      const price55Raw = prices["55%"];
+
+const price55 =
+  Math.floor(price55Raw / 100) * 100 + 80;
+
+html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
+  <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
 </div>`;
       const price60 = prices["60%"];
       const price60Discount = price60 * 0.75 / 2;
