@@ -187,7 +187,6 @@
       <input
         id="calcDisplay"
         type="text"
-        readonly
         inputmode="none"
         placeholder="0"
         style="
@@ -489,50 +488,56 @@ const price60Discount = price60 * 0.75 / 2;
     }
 document.addEventListener('keydown', function(e) {
   const modal = document.getElementById('calcModal');
+  const d = document.getElementById('calcDisplay');
 
   if (modal.style.display !== 'block') return;
 
-  if (e.ctrlKey || e.metaKey || e.altKey) return;
-
-  if (/^[0-9]$/.test(e.key)) {
-    e.preventDefault();
-    calcKey(e.key);
+  if (e.ctrlKey || e.metaKey || e.altKey) {
+    if (e.key.toLowerCase() === 'a') {
+      e.preventDefault();
+      d.focus();
+      d.select();
+    }
+    return;
   }
 
-  if (['+','-','*','/','.','%','(',')'].includes(e.key)) {
+  if (/^[0-9]$/.test(e.key) || ['+','-','*','/','.','%','(',')'].includes(e.key)) {
     e.preventDefault();
-    calcKey(e.key);
+
+    if (d.selectionStart !== d.selectionEnd) {
+      d.value =
+        d.value.slice(0, d.selectionStart) +
+        e.key +
+        d.value.slice(d.selectionEnd);
+    } else {
+      calcKey(e.key);
+    }
   }
 
   if (e.key === 'Backspace') {
-
-  const d = document.getElementById('calcDisplay');
-
-  if (
-    d.selectionStart === 0 &&
-    d.selectionEnd === d.value.length
-  ) {
     e.preventDefault();
-    calcClear();
-    return;
+
+    if (d.selectionStart !== d.selectionEnd) {
+      d.value =
+        d.value.slice(0, d.selectionStart) +
+        d.value.slice(d.selectionEnd);
+    } else {
+      calcBack();
+    }
   }
 
-  e.preventDefault();
-  calcBack();
-}
   if (e.key === 'Delete') {
-
-  const d = document.getElementById('calcDisplay');
-
-  if (
-    d.selectionStart === 0 &&
-    d.selectionEnd === d.value.length
-  ) {
     e.preventDefault();
-    calcClear();
-    return;
+
+    if (d.selectionStart !== d.selectionEnd) {
+      d.value =
+        d.value.slice(0, d.selectionStart) +
+        d.value.slice(d.selectionEnd);
+    } else {
+      calcClear();
+    }
   }
-}
+
   if (e.key === 'Enter') {
     e.preventDefault();
     calcEval();
