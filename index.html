@@ -435,31 +435,10 @@ let html = `<div class="entry" style="font-size: 20px;">
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
 </div>`;
-      const price20Raw = prices["20%"];
-const price20 =
-  Math.ceil((price20Raw - 80) / 100) * 100 + 80;
-
-html += `<div class="entry" style="font-size:20px;">
-  <strong>20% 利润售价：</strong>RM ${price20.toFixed(2)}
-</div>`;
-
-const price30Raw = prices["30%"];
-const price30 =
-  Math.ceil((price30Raw - 80) / 100) * 100 + 80;
-
-html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
-  <strong>30% 批发售价：</strong>RM ${price30.toFixed(2)}
-</div>`;
-
-const price40Raw = prices["40%"];
-const price40 =
-  Math.ceil((price40Raw - 80) / 100) * 100 + 80;
-
-html += `<div class="entry" style="font-size:20px;">
-  <strong>40% 利润售价：</strong>RM ${price40.toFixed(2)}
-</div>`;
-      const price45Raw = prices["45%"];
-
+      html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 批发售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
+     const price45Raw = prices["45%"];
 const price45 =
   Math.floor(price45Raw / 100) * 100 + 80;
 
