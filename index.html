@@ -402,14 +402,17 @@
       document.getElementById('local').value = defaultLocal[currency];
       autoSetPotVND();
     }
+function updateRawPrice() {
+  const input = document.getElementById('price_display');
+  const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, '')) || 0;
+  document.getElementById('price').value = raw;
 
-    function updateRawPrice() {
-      const input = document.getElementById('price_display');
-      const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, '')) || 0;
-      document.getElementById('price').value = raw;
-      autoSetPotVND();
-    }
+  document.getElementById('actualPrice').value = "0";
+  document.getElementById('actualProfitDisplay').value = "0";
 
+  autoSetPotVND();
+}
+    
     function formatDisplayPrice() {
       const input = document.getElementById('price_display');
       const raw = parseFloat(input.value.replace(/,/g, '').replace(/[^\d.]/g, ''));
