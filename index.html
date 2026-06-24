@@ -145,8 +145,9 @@
     </div>
   </div>
 
-  <div class="row" style="align-items:end;">
-  <div style="flex:0.7;">
+  <div class="row" style="align-items:end; gap:5px;">
+  <div style="flex:0 0 70px;">
+  
     <label for="local">
       本地运费：
       <span style="color:red;font-weight:bold;font-size:12px;">
@@ -156,7 +157,7 @@
     <input id="local" type="text" value="20" />
   </div>
 
-  <div style="flex:1;">
+  <div style="flex:0 0 95px;">
   <label for="actualPrice">实际售价：</label>
   <input
     id="actualPrice"
@@ -165,8 +166,8 @@
     onblur="formatActualPrice()"
   />
 </div>
-<div style="flex:1;">
-  <label>净利 / 利润率：</label>
+<div style="flex:1.6;">
+  <label>净利/利润率：</label>
   <input
     id="actualProfitDisplay"
     type="text"
@@ -174,7 +175,7 @@
     value=""
   />
 </div>
-  <div style="flex:0.5;">
+  <div style="flex:0 0 58px;">
     <button onclick="calculate()" style="margin-top:0;">
       🌱 计算
     </button>
