@@ -96,61 +96,67 @@
   </p>
 
   <div class="row">
-    <div style="flex: 2;">
-      <label for="price_display" style="display:flex; align-items:center; gap:8px;">
-        <span>盆栽进口成本：</span>
-        <button type="button" class="mini-btn" onclick="toggleCalc(true)">🧮</button>
-      </label>
+  <div style="flex:2;">
+    <label for="price_display" style="display:flex; align-items:center; gap:8px;">
+      <span>盆栽进口成本：</span>
+      <button type="button" class="mini-btn" onclick="toggleCalc(true)">🧮</button>
+    </label>
 
-      <input
-        id="price_display"
-        onblur="formatDisplayPrice()"
-        oninput="updateRawPrice()"
-        type="text"
-        placeholder="如 1,000.00"
-      />
-      <input id="price" type="hidden" value="" />
-    </div>
-
-    <div style="flex: 1;">
-      <label for="currency">货币：</label>
-      <select id="currency" onchange="setRate()">
-        <option selected value="CNY">CNY</option>
-        <option value="NTD">NTD</option>
-        <option value="VND">VND</option>
-        <option value="IDR">IDR</option>
-      </select>
-    </div>
+    <input
+      id="price_display"
+      onblur="formatDisplayPrice()"
+      oninput="updateRawPrice()"
+      type="text"
+      placeholder="如 1,000.00"
+    />
+    <input id="price" type="hidden" value="" />
   </div>
 
-  <div class="row">
-    <div>
-      <label for="rate">汇率：</label>
-      <input id="rate" type="text" value="1.58" />
-    </div>
-    <div>
-      <label for="freight">海外到大马运费比例（%）：</label>
-      <input id="freight" type="text" value="20%" />
-    </div>
+  <div style="flex:0.8;">
+    <label for="currency">货币：</label>
+    <select id="currency" onchange="setRate()">
+      <option selected value="CNY">CNY</option>
+      <option value="NTD">NTD</option>
+      <option value="VND">VND</option>
+      <option value="IDR">IDR</option>
+    </select>
   </div>
 
-  <div class="row">
-    <div>
-      <label for="pot">花盆成本：</label>
-      <input id="pot" type="text" value="0" />
-    </div>
-    <div>
-      <label for="moss">苔藓成本：</label>
-      <input id="moss" type="text" value="0" />
-    </div>
+  <div style="flex:1;">
+    <label for="rate">汇率：</label>
+    <input id="rate" type="text" value="1.58" />
+  </div>
+</div>
+<div class="row">
+  <div>
+    <label for="freight">海外运费%：</label>
+    <input id="freight" type="text" value="20%" />
   </div>
 
-  <div class="row" style="align-items:end; gap:5px;">
-  <div style="flex:0 0 60px;">
-  
-    <label for="local">本地运费</label>
+  <div>
+    <label for="pot">花盆成本：</label>
+    <input id="pot" type="text" value="0" />
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label for="moss">苔藓成本：</label>
+    <input id="moss" type="text" value="0" />
+  </div>
+
+  <div>
+    <label for="local">
+      本地运费：
+      <span style="color:#8B0000;font-weight:bold;">
+        （木架最低80）
+      </span>
+    </label>
     <input id="local" type="text" value="20" />
   </div>
+</div>
+
+<div class="row" style="align-items:end; gap:5px;">
 
   <div style="flex:0 0 95px;">
   <label for="actualPrice">实际售价：</label>
