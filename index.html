@@ -461,7 +461,7 @@ if (actualPrice > 0) {
   const actualNetProfit = actualPrice * 0.9 - 80 - rmCost;
   const actualMargin = (actualNetProfit / actualPrice) * 100;
   document.getElementById('actualProfitDisplay').value =
-  `${actualNetProfit.toFixed(0)} | ${actualMargin.toFixed(1)}%`;
+  `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
  } else {
   document.getElementById('actualProfitDisplay').value = "0";
 }
