@@ -158,25 +158,27 @@
 
 <div class="row" style="align-items:end; gap:5px;">
 
-  <div style="flex:0 0 95px;">
+ <div style="flex:1;">
   <label for="actualPrice">实际售价：</label>
   <input
-    id="actualPrice"
-    type="text"
-    placeholder="实际售价"
-    onblur="formatActualPrice()"
-  />
+    <input
+  id="actualPrice"
+  type="text"
+  value="0"
+  onblur="formatActualPrice()"
+/>
 </div>
-<div style="flex:3;">
+<div style="flex:1;">
   <label>净利/利润率：</label>
   <input
-    id="actualProfitDisplay"
-    type="text"
-    readonly
-    value=""
-  />
+  <input
+  id="actualProfitDisplay"
+  type="text"
+  readonly
+  value="0"
+/>
 </div>
-  <div style="flex:0 0 58px;">
+  <div style="flex:0.8;">
     <button onclick="calculate()" style="margin-top:0;">
       🌱 计算
     </button>
