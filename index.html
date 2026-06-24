@@ -147,7 +147,12 @@
 
   <div class="row" style="align-items:end;">
   <div style="flex:0.7;">
-    <label for="local">本地运费：</label>
+    <label for="local">
+      本地运费：
+      <span style="color:red;font-weight:bold;font-size:12px;">
+        （木架最低80）
+      </span>
+    </label>
     <input id="local" type="text" value="20" />
   </div>
 
@@ -162,20 +167,7 @@
     </button>
   </div>
 </div>
-      <span style="color:red;font-weight:bold;font-size:12px;">
-        （木架最低80）
-      </span>
-    </label>
-    <input id="local" type="text" value="20" />
-  </div>
-
-  <div style="flex:0.5;">
-    <button onclick="calculate()" style="margin-top:0;">
-      🌱 计算
-    </button>
-  </div>
-</div>
-
+      
   <div class="result" id="result"></div>
 
   <!-- ✅ 小计算器弹窗 -->
