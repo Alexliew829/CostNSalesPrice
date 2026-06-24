@@ -437,7 +437,15 @@
           : (parseFloat(freightInput) / 100);
 
       const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
+if (actualPrice > 0) {
+  const actualNetProfit = actualPrice * 0.9 - 80 - rmCost;
+  const actualMargin = (actualNetProfit / actualPrice) * 100;
 
+  document.getElementById('actualProfitDisplay').value =
+    `RM ${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
+} else {
+  document.getElementById('actualProfitDisplay').value = "";
+}
       const prices = {
         "20%": rmCost * 1.26 * 1.12,
         "30%": rmCost * 1.43 * 1.12,
@@ -454,7 +462,7 @@
   <span style="color:red; font-weight:bold;">
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
-</div>
+</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 批发售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
