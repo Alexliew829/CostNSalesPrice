@@ -157,31 +157,26 @@
 </div>
 
 <div class="row" style="align-items:end; gap:5px;">
-
- <div style="flex:1;">
-  <label for="actualPrice">实际售价：</label>
-  <input
-    <input
   <div style="flex:1;">
-  <label for="actualPrice">实际售价：</label>
-  <input
-    id="actualPrice"
-    type="text"
-    value="0"
-    onblur="formatActualPrice()"
-  />
-</div>
+    <label for="actualPrice">实际售价：</label>
+    <input
+      id="actualPrice"
+      type="text"
+      value="0"
+      onblur="formatActualPrice()"
+    />
+  </div>
 
-<div style="flex:1;">
-  <label>净利/利润率：</label>
-  <input
-    id="actualProfitDisplay"
-    type="text"
-    readonly
-    value="0"
-  />
-</div>
-</div>
+  <div style="flex:1;">
+    <label>净利/利润率：</label>
+    <input
+      id="actualProfitDisplay"
+      type="text"
+      readonly
+      value="0"
+    />
+  </div>
+
   <div style="flex:0.8;">
     <button onclick="calculate()" style="margin-top:0;">
       🌱 计算
@@ -212,9 +207,11 @@
 
       <!-- ✅ readonly + inputmode none：减少 iOS 双击放大 -->
       <input
-        id="calcDisplay"
-        type="text"
-        inputmode="none"
+      <input
+  id="calcDisplay"
+  type="text"
+  readonly
+  inputmode="none"
         placeholder="0"
         style="
           width:100%;
@@ -464,11 +461,11 @@ if (actualPrice > 0) {
   const actualNetProfit = actualPrice * 0.9 - 80 - rmCost;
   const actualMargin = (actualNetProfit / actualPrice) * 100;
   document.getElementById('actualProfitDisplay').value =
-  `RM ${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
-} else {
-  document.getElementById('actualProfitDisplay').value = "";
+  `${actualNetProfit.toFixed(0)} | ${actualMargin.toFixed(1)}%`;
+ } else {
+  document.getElementById('actualProfitDisplay').value = "0";
 }
-      const prices = {
+          const prices = {
         "20%": rmCost * 1.26 * 1.12,
         "30%": rmCost * 1.43 * 1.12,
         "40%": rmCost * 1.67 * 1.12,
