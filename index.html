@@ -441,6 +441,21 @@
       };
 
      const costX3 = rmCost * 3;
+      let actualProfitHtml = "";
+
+if (actualPrice > 0) {
+  const actualNetProfit =
+    actualPrice * 0.9 - 80 - rmCost;
+
+  const actualMargin =
+    (actualNetProfit / actualPrice) * 100;
+
+  actualProfitHtml = `
+<div class="entry" style="font-size:18px; color:#000; font-weight:900;">
+  实际净利：RM ${actualNetProfit.toFixed(2)}
+  ｜利润率：${actualMargin.toFixed(2)}%
+</div>`;
+}
 let html = `<div class="entry" style="font-size:20px;">
   <strong>实际成本：</strong>RM ${rmCost.toFixed(2)}
   <span style="color:red; font-weight:bold;">
