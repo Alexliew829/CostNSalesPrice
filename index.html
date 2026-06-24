@@ -485,15 +485,15 @@ if (actualPrice > 0) {
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
 </div>`;
-      html += `<div class="entry" style="font-size: 20px;"><strong>20%批发1.26x1.12：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30%售价1.43x1.12：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px;"><strong>40%售价1.67x1.82：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px;"><strong>20% 批发售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
      const price45Raw = prices["45%"];
 const price45 =
   Math.floor(price45Raw / 100) * 100 + 80;
 
 html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
-  <strong>45%售价1.82x1.12：</strong>RM ${price45.toFixed(2)}
+  <strong>45% 利润售价：</strong>RM ${price45.toFixed(2)}
 </div>`;
       const retail50Raw = prices["50%"];
 const retail50 =
@@ -511,7 +511,7 @@ const marginPercent =
 
 html += `
 <div class="entry" style="font-size:20px; color:red; font-weight:bold;">
-  <strong>50%门市/直播售价2.0x1.12：</strong>RM ${retail50.toFixed(2)}
+  <strong>50% 门市/直播售价：</strong>RM ${retail50.toFixed(2)}
 </div>
 <div class="entry" style="font-size:18px; color:#000; font-weight:900;">
   （直播净利：RM ${profitAfterCommission.toFixed(2)}
@@ -524,7 +524,7 @@ const price55 =
   Math.floor(price55Raw / 100) * 100 + 80;
 
 html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
-  <strong>55%售价2.23x1.12：</strong>RM ${price55.toFixed(2)}
+  <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
 </div>`;
      const price60Raw = prices["60%"];
 
@@ -532,7 +532,7 @@ const price60 =
   Math.floor(price60Raw / 100) * 100 + 80;
 const price60Discount = price60 * 0.75 / 2;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
-        <strong>60%Fair售价2.51x1.12：</strong>RM ${price60.toFixed(2)}
+        <strong>60% Fair售价：</strong>RM ${price60.toFixed(2)}
         <span style="color: #1976d2; font-weight: bold; font-size: 20px;"> / ${price60Discount.toFixed(2)}</span>
       </div>`;
 
