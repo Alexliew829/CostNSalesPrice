@@ -146,8 +146,22 @@
   </div>
 
   <div class="row" style="align-items:end;">
+  <div style="flex:0.7;">
+    <label for="local">本地运费：</label>
+    <input id="local" type="text" value="20" />
+  </div>
+
   <div style="flex:1;">
-    <label for="local">本地运费：
+    <label for="actualPrice">实际售价：</label>
+    <input id="actualPrice" type="text" placeholder="贴实际售价" />
+  </div>
+
+  <div style="flex:0.5;">
+    <button onclick="calculate()" style="margin-top:0;">
+      🌱 计算
+    </button>
+  </div>
+</div>
       <span style="color:red;font-weight:bold;font-size:12px;">
         （木架最低80）
       </span>
@@ -404,6 +418,12 @@
       const pot = parseFloat(document.getElementById('pot').value) || 0;
       const moss = parseFloat(document.getElementById('moss').value) || 0;
       const local = parseFloat(document.getElementById('local').value) || 0;
+      const actualPrice =
+  parseFloat(
+    document.getElementById('actualPrice').value
+      .replace(/,/g, '')
+      .replace(/[^\d.]/g, '')
+  ) || 0;
 
       if (isNaN(price) || isNaN(rate) || rate <= 0) {
         alert('请输入有效的进口成本单价和汇率');
@@ -429,12 +449,13 @@
       };
 
      const costX3 = rmCost * 3;
-let html = `<div class="entry" style="font-size: 20px;">
+let html = `<div class="entry" style="font-size:20px;">
   <strong>实际成本：</strong>RM ${rmCost.toFixed(2)}
   <span style="color:red; font-weight:bold;">
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
-</div>`;
+</div>
+${actualProfitHtml}`;
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 利润售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 批发售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
