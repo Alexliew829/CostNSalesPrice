@@ -157,9 +157,14 @@
   </div>
 
   <div style="flex:1;">
-    <label for="actualPrice">实际售价：</label>
-    <input id="actualPrice" type="text" placeholder="实际售价" />
-  </div>
+  <label for="actualPrice">实际售价：</label>
+  <input
+    id="actualPrice"
+    type="text"
+    placeholder="实际售价"
+    onblur="formatActualPrice()"
+  />
+</div>
 <div style="flex:1;">
   <label>净利 / 利润率：</label>
   <input
@@ -410,7 +415,17 @@
       }
       updateRawPrice();
     }
+function formatActualPrice() {
+  const input = document.getElementById('actualPrice');
 
+  const value = parseFloat(
+    input.value.replace(/,/g, '')
+  );
+
+  if (!isNaN(value)) {
+    input.value = value.toFixed(2);
+  }
+}
     function calculate() {
       const price = parseFloat(document.getElementById('price').value);
       const freightInput = document.getElementById('freight').value.trim();
