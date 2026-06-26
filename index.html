@@ -461,8 +461,14 @@ function formatActualPrice() {
 
       const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
 if (actualPrice > 0) {
-  const actualNetProfit = actualPrice * 0.9 - 80 - rmCost;
-  const actualMargin = (actualNetProfit / actualPrice) * 100;
+  // 实际售价低于 RM500，本地运费扣 RM50；否则扣 RM80
+const deliveryCost = actualPrice < 500 ? 50 : 80;
+
+// 扣 10% 佣金
+const actualNetProfit = actualPrice * 0.9 - deliveryCost - rmCost;
+
+// 利润率
+const actualMargin = (actualNetProfit / actualPrice) * 100;
   document.getElementById('actualProfitDisplay').value =
   `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
  } else {
