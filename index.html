@@ -462,7 +462,7 @@ function formatActualPrice() {
       const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
 if (actualPrice > 0) {
   // 实际售价低于 RM500，本地运费扣 RM50；否则扣 RM80
-const deliveryCost = actualPrice < 500 ? 50 : 80;
+const deliveryCost = actualPrice <= 500 ? 50 : 80;
 
 // 扣 10% 佣金
 const actualNetProfit = actualPrice * 0.9 - deliveryCost - rmCost;
