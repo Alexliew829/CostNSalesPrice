@@ -506,12 +506,18 @@ const retail50 =
   Math.floor(retail50Raw / 100) * 100 + 80;
 
 const streamerPrice = retail50;
-const afterCommission = streamerPrice * 0.9;
-const deliveryCost = 80;
 
+// 扣 10% 佣金
+const afterCommission = streamerPrice * 0.9;
+
+// 售价 ≤500 扣 RM50，>500 扣 RM80
+const deliveryCost = streamerPrice <= 500 ? 50 : 80;
+
+// 直播净利
 const profitAfterCommission =
   afterCommission - deliveryCost - rmCost;
 
+// 利润率
 const marginPercent =
   (profitAfterCommission / streamerPrice) * 100;
 
