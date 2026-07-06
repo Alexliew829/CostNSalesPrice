@@ -155,7 +155,6 @@
     <input id="local" type="text" value="20" />
   </div>
 </div>
-
 <div class="row" style="align-items:end; gap:5px;">
   <div style="flex:0.8;">
     <label for="actualPrice">实际售价：</label>
@@ -164,6 +163,16 @@
       type="text"
       value="0"
       onblur="formatActualPrice()"
+    />
+  </div>
+
+  <div style="flex:0.8;">
+    <label for="receivedDisplay">到手金额：</label>
+    <input
+      id="receivedDisplay"
+      type="text"
+      readonly
+      value="0"
     />
   </div>
 
@@ -183,8 +192,7 @@
     </button>
   </div>
 </div>
-      
-  <div class="result" id="result"></div>
+    <div class="result" id="result"></div>
 
   <!-- ✅ 小计算器弹窗 -->
   <div id="calcModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:9999; touch-action: manipulation;">
