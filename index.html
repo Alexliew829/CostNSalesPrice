@@ -207,11 +207,10 @@
 
       <!-- ✅ readonly + inputmode none：减少 iOS 双击放大 -->
       <input
-      <input
-  id="calcDisplay"
-  type="text"
-  readonly
-  inputmode="none"
+        id="calcDisplay"
+        type="text"
+        readonly
+        inputmode="none"
         placeholder="0"
         style="
           width:100%;
@@ -496,6 +495,16 @@ if (actualPrice > 0) {
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
 </div>`;
+
+      if (actualPrice > 0) {
+        html += `<div class="entry" style="font-size:20px;">
+  <strong>实际售价：</strong>RM ${actualPrice.toFixed(2)}
+  <span style="color:#0d47a1; font-weight:bold;">
+    &nbsp;&nbsp;到手：RM ${receivedAmount.toFixed(2)}
+  </span>
+</div>`;
+      }
+
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 批发售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
