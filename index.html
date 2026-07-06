@@ -88,22 +88,15 @@
 
 <body>
   <h1>
-  <img src="Logo2.jpg" alt="情人传奇 Logo" />
-  <span>成本与售价计算器</span>
-  <span style="
-      font-size:16px;
-      color:#666;
-      font-weight:600;
-      margin-left:8px;
-      vertical-align:middle;
-  ">
-    V2.2
-  </span>
-</h1>
-  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px; margin-bottom: 2px;">
+    <img src="Logo2.jpg" alt="情人传奇 Logo" />
+    <span>成本与售价计算器</span>
+    <span style="font-size:16px; color:#666; font-weight:bold; margin-left:4px;">V2.3</span>
+  </h1>
+  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px;">
     – Lover Legend Gardening
   </p>
-    <div class="row">
+
+  <div class="row">
   <div style="flex:2;">
     <label for="price_display" style="display:flex; align-items:center; gap:8px;">
       <span>盆栽进口成本：</span>
@@ -164,7 +157,7 @@
   </div>
 </div>
 <div class="row" style="align-items:end; gap:5px;">
-  <div style="flex:0.8;">
+  <div style="flex:0.75;">
     <label for="actualPrice">实际售价：</label>
     <input
       id="actualPrice"
@@ -174,7 +167,7 @@
     />
   </div>
 
-  <div style="flex:0.8;">
+  <div style="flex:0.75;">
     <label for="receivedDisplay">到手金额：</label>
     <input
       id="receivedDisplay"
@@ -184,17 +177,27 @@
     />
   </div>
 
-  <div style="flex:1.2;">
-    <label>净利/利润率：</label>
+  <div style="flex:0.75;">
+    <label for="actualNetProfitDisplay">净利：</label>
     <input
-      id="actualProfitDisplay"
+      id="actualNetProfitDisplay"
       type="text"
       readonly
       value="0"
     />
   </div>
 
-  <div style="flex:0.8;">
+  <div style="flex:0.65;">
+    <label for="actualMarginDisplay">利润率：</label>
+    <input
+      id="actualMarginDisplay"
+      type="text"
+      readonly
+      value="0"
+    />
+  </div>
+
+  <div style="flex:0.75;">
     <button onclick="calculate()" style="margin-top:0;">
       🧮 计算
     </button>
@@ -424,7 +427,8 @@ function updateRawPrice() {
 
   document.getElementById('actualPrice').value = "0";
   document.getElementById('receivedDisplay').value = "0";
-  document.getElementById('actualProfitDisplay').value = "0";
+  document.getElementById('actualNetProfitDisplay').value = "0";
+  document.getElementById('actualMarginDisplay').value = "0";
 
   autoSetPotVND();
 }
@@ -490,14 +494,13 @@ if (actualPrice > 0) {
   // 利润率 = 实际净利 ÷ 实际售价 × 100%
   const actualMargin = (actualNetProfit / actualPrice) * 100;
 
-  document.getElementById('receivedDisplay').value =
-    receivedAmount.toFixed(2);
-
-  document.getElementById('actualProfitDisplay').value =
-    `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
+  document.getElementById('receivedDisplay').value = receivedAmount.toFixed(2);
+  document.getElementById('actualNetProfitDisplay').value = actualNetProfit.toFixed(2);
+  document.getElementById('actualMarginDisplay').value = actualMargin.toFixed(2) + "%";
 } else {
   document.getElementById('receivedDisplay').value = "0";
-  document.getElementById('actualProfitDisplay').value = "0";
+  document.getElementById('actualNetProfitDisplay').value = "0";
+  document.getElementById('actualMarginDisplay').value = "0";
 }
                 const prices = {
         "20%": rmCost * 1.26 * 1.12,
@@ -512,19 +515,19 @@ if (actualPrice > 0) {
      const costX3 = rmCost * 3;
       let html = `<div class="entry" style="font-size:20px;">
   <strong>实际成本：</strong>RM ${rmCost.toFixed(2)}
-  <span style="color:red; font-weight:bold;">
+  <span style="color:#8B0000; font-weight:bold;">
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
 </div>`;
 
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 批发售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
-      html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
+      html += `<div class="entry" style="font-size: 20px; color: #0d47a1; font-weight: bold;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px;"><strong>40% 利润售价：</strong>RM ${prices["40%"].toFixed(2)}</div>`;
      const price45Raw = prices["45%"];
 const price45 =
   Math.floor(price45Raw / 100) * 100 + 80;
 
-html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
+html += `<div class="entry" style="font-size:20px; color:#0d47a1; font-weight:bold;">
   <strong>45% 利润售价：</strong>RM ${price45.toFixed(2)}
 </div>`;
       const retail50Raw = prices["50%"];
@@ -561,7 +564,7 @@ html += `
 const price55 =
   Math.floor(price55Raw / 100) * 100 + 80;
 
-html += `<div class="entry" style="font-size:20px; color:#1976d2; font-weight:bold;">
+html += `<div class="entry" style="font-size:20px; color:#0d47a1; font-weight:bold;">
   <strong>55% 利润售价：</strong>RM ${price55.toFixed(2)}
 </div>`;
      const price60Raw = prices["60%"];
@@ -571,7 +574,7 @@ const price60 =
 const price60Discount = price60 * 0.75 / 2;
       html += `<div class="entry" style="font-size: 20px; color: red; font-weight: bold;">
         <strong>60% Fair售价：</strong>RM ${price60.toFixed(2)}
-        <span style="color: #1976d2; font-weight: bold; font-size: 20px;"> / ${price60Discount.toFixed(2)}</span>
+        <span style="color: #0d47a1; font-weight: bold; font-size: 20px;"> / ${price60Discount.toFixed(2)}</span>
       </div>`;
 
       html += `<div class="entry" style="font-size: 20px; font-weight: bold; color: #000;">
