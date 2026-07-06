@@ -91,8 +91,11 @@
     <img src="Logo2.jpg" alt="情人传奇 Logo" />
     成本与售价计算器
   </h1>
-  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px;">
+  <p style="color: red; font-weight: bold; font-size: 26px; letter-spacing: 1px; margin-bottom: 2px;">
     – Lover Legend Gardening
+  </p>
+  <p style="color:#555; font-weight:bold; font-size:13px; margin-top:0;">
+    Version 2.2
   </p>
 
   <div class="row">
@@ -415,6 +418,7 @@ function updateRawPrice() {
   document.getElementById('price').value = raw;
 
   document.getElementById('actualPrice').value = "0";
+  document.getElementById('receivedDisplay').value = "0";
   document.getElementById('actualProfitDisplay').value = "0";
 
   autoSetPotVND();
@@ -481,9 +485,13 @@ if (actualPrice > 0) {
   // 利润率 = 实际净利 ÷ 实际售价 × 100%
   const actualMargin = (actualNetProfit / actualPrice) * 100;
 
+  document.getElementById('receivedDisplay').value =
+    receivedAmount.toFixed(2);
+
   document.getElementById('actualProfitDisplay').value =
     `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
 } else {
+  document.getElementById('receivedDisplay').value = "0";
   document.getElementById('actualProfitDisplay').value = "0";
 }
                 const prices = {
@@ -503,15 +511,6 @@ if (actualPrice > 0) {
     &nbsp;&nbsp;x3: RM ${costX3.toFixed(2)}
   </span>
 </div>`;
-
-      if (actualPrice > 0) {
-        html += `<div class="entry" style="font-size:20px;">
-  <strong>实际售价：</strong>RM ${actualPrice.toFixed(2)}
-  <span style="color:#0d47a1; font-weight:bold;">
-    &nbsp;&nbsp;到手：RM ${receivedAmount.toFixed(2)}
-  </span>
-</div>`;
-      }
 
       html += `<div class="entry" style="font-size: 20px;"><strong>20% 批发售价：</strong>RM ${prices["20%"].toFixed(2)}</div>`;
       html += `<div class="entry" style="font-size: 20px; color: #1976d2; font-weight: bold;"><strong>30% 利润售价：</strong>RM ${prices["30%"].toFixed(2)}</div>`;
