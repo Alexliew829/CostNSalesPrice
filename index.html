@@ -447,8 +447,7 @@ function formatActualPrice() {
       .replace(/,/g, '')
       .replace(/[^\d.]/g, '')
   ) || 0;
-
-      if (isNaN(price) || isNaN(rate) || rate <= 0) {
+           if (isNaN(price) || isNaN(rate) || rate <= 0) {
         alert('请输入有效的进口成本单价和汇率');
         return;
       }
@@ -458,23 +457,29 @@ function formatActualPrice() {
         : freightInput.includes('%')
           ? (parseFloat(freightInput.replace('%', '')) / 100)
           : (parseFloat(freightInput) / 100);
+const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
 
-      const rmCost = (price / rate) * (1 + freight) + pot + moss + local;
+let receivedAmount = 0;
+
 if (actualPrice > 0) {
-  // 实际售价低于 RM500，本地运费扣 RM50；否则扣 RM80
-const deliveryCost = actualPrice <= 500 ? 50 : 80;
+  // 实际售价 ≤ RM500 扣 RM50；超过 RM500 扣 RM80
+  const deliveryCost = actualPrice <= 500 ? 50 : 80;
 
-// 扣 10% 佣金
-const actualNetProfit = actualPrice * 0.9 - deliveryCost - rmCost;
+  // 到手金额 = 实际售价 - 10%佣金 - 运费
+  receivedAmount = actualPrice * 0.9 - deliveryCost;
 
-// 利润率
-const actualMargin = (actualNetProfit / actualPrice) * 100;
+  // 实际净利 = 到手金额 - 实际成本
+  const actualNetProfit = receivedAmount - rmCost;
+
+  // 利润率 = 实际净利 ÷ 实际售价 × 100%
+  const actualMargin = (actualNetProfit / actualPrice) * 100;
+
   document.getElementById('actualProfitDisplay').value =
-  `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
- } else {
+    `${actualNetProfit.toFixed(2)} | ${actualMargin.toFixed(2)}%`;
+} else {
   document.getElementById('actualProfitDisplay').value = "0";
 }
-          const prices = {
+                const prices = {
         "20%": rmCost * 1.26 * 1.12,
         "30%": rmCost * 1.43 * 1.12,
         "40%": rmCost * 1.67 * 1.12,
